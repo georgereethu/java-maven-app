@@ -34,6 +34,7 @@ pipeline{
        steps{
         echo  "Deploy is successful"
         echo "Deploying to  ${ENV}"
+        echo "Deploying to  ${VERSION}"
        }
      }
  }
