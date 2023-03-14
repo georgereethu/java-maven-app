@@ -1,41 +1,48 @@
 pipeline{
  agent any
- parameters{
-  choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description:'')
-  booleanParam(name: 'executeTests', defaultValue: true, description:'')
-
+ tools{
+ maven 'maven-3.9'
  }
  stages{
   stage("build"){
-   steps{
-    echo  "Build is successful"
-   }
+  script{
+  steps{
+      sh 'mvn package'
+     }
+  }
+
   }
    stage("Test"){
-   when{
-   expression {
-   params.executeTests==true
-   }
-   }
-     steps{
-      echo  "Test is successful"
-     }
-    }
+    script{
 
-     stage("Deploy"){
-      input {
-       message "Select the environment to deploy to:"
-       ok "ENV selected"
-       parameters {
-        choice(name: 'ENV', choices: ['Dev', 'Staging', 'Prod'], description:'')
-        choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description:'')
-       }
-      }
+        steps{
+          echo  "Test is successful"
+               }
+    }
+}
+
+     stage("Build Image"){
+     script{
        steps{
-        echo  "Deploy is successful"
-        echo "Deploying to  ${ENV}"
-        echo "Deploying to  ${VERSION}"
+        withCredentials([usernamePassword(credentialsID: 'dockerhub_cred', usernameVariable: 'USER', passwordVariable: 'USER')])
+         sh 'docker build -t reethu123/myrepo:1.2 . '
+         sh "echo $PASS |docker login -u $USER --password-stdin'
+         sh 'docker push reethu123/myrepo:1.2'
        }
      }
- }
+
 }
+
+      stage("Deploying Image"){
+      script{
+      steps{
+      echo "Deploying docker image to Docker hub"
+      }
+      }
+
+      }
+
+     }
+
+   }
+
