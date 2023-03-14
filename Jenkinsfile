@@ -34,9 +34,9 @@ pipeline{
 }
 
       stage("Deploying Image"){
-      script{
-      steps{
-      echo "Deploying docker image to Docker hub"
+       script{
+        steps{
+         echo "Deploying docker image to Docker hub"
       }
       }
 
