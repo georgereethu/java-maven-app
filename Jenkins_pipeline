@@ -36,9 +36,12 @@ pipeline{
        params.executeTests == true
     }
    }
+   steps{
       script {
       gv.TestApp()
       }
+      
+     }
 }
 
    stage("Deploying Image"){
