@@ -34,16 +34,10 @@ pipeline{
 
         steps{
          echo "Deploying docker image to Docker hub"
+         echo "Deploying ${params.VERSION}"
       }
       }     
-   post {
-        always{
-        
-        echo "Pipeline is successfull as always"
-        }
-        }
-        
-
+       
      }
 
    }
