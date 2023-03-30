@@ -14,7 +14,7 @@ pipeline{
  
  stage("Initilization stage"){
   steps{
-   script {
+   script{
     gv = load "script.groovy"
     }
     }
@@ -23,7 +23,7 @@ pipeline{
   stage("build"){
   
   steps{
-      script {
+      script{
       gv.buildJar()
       }
       
@@ -31,13 +31,13 @@ pipeline{
   }
    stage("Test"){
    
-   when {
+   when{
     expression{
        params.executeTests == true
     }
    }
    steps{
-      script {
+      script{
        gv.testApp()
       }
       
@@ -47,7 +47,7 @@ pipeline{
    stage("Deploying Image"){
 
         steps{
-         script {
+         script{
            gv.deployApp()
       }
       }
