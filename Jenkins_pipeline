@@ -1,11 +1,11 @@
 def gv
-pipeline{
+pipeline {
  agent any
  
- tools{
+ tools {
    maven 'maven-3.9'
  }
- parameters{
+ parameters {
   choice(name:'VERSION', choices: ['1.1.0', '1.1.2', '1.1.3'], description:'')
   booleanParam(name: 'executeTests', defaultValue: true, description: '')
  }
@@ -13,8 +13,8 @@ pipeline{
  stages{
  
  stage("Initilization stage"){
-  steps{
-   script{
+  steps {
+   script {
     gv = load "script.groovy"
     }
     }
@@ -22,8 +22,8 @@ pipeline{
     
   stage("build"){
   
-  steps{
-      script{
+  steps {
+      script {
       gv.buildJar()
       }
       
@@ -31,13 +31,13 @@ pipeline{
   }
    stage("Test"){
    
-   when{
-    expression{
+   when {
+    expression {
        params.executeTests == true
     }
    }
-   steps{
-      script{
+   steps {
+      script {
        gv.testApp()
       }
       
@@ -46,8 +46,8 @@ pipeline{
 
    stage("Deploying Image"){
 
-        steps{
-         script{
+        steps {
+         script {
            gv.deployApp()
       }
       }
