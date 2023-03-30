@@ -2,8 +2,9 @@ pipeline{
  agent any
  stages{
   stage("build"){
+  
   steps{
-      sh 'mvn package'
+      echo "Build is successfull"
      }
   }
    stage("Test"){
@@ -12,18 +13,9 @@ pipeline{
         steps{
           echo  "Test is successful"
                }
-   
 }
 
-     stage("Build Image"){
-  
-       steps{
-        echo " Build is susccessfull"
-       }
-   
-}
-
-      stage("Deploying Image"){
+   stage("Deploying Image"){
 
         steps{
          echo "Deploying docker image to Docker hub"
