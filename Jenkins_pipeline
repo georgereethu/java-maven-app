@@ -38,7 +38,7 @@ pipeline{
    }
    steps{
       script {
-      gv.TestApp()
+      gv.testApp()
       }
       
      }
