@@ -21,6 +21,13 @@ pipeline{
          echo "Deploying docker image to Docker hub"
       }
       }     
+      post {
+        always{
+        
+        echo "Pipeline is successfull as always"
+        }
+        }
+        
 
      }
 
