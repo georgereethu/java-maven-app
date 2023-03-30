@@ -1,3 +1,4 @@
+def gv
 pipeline{
  agent any
  
@@ -10,10 +11,22 @@ pipeline{
  }
  
  stages{
+ 
+ stage("Initilization stage"){
+  steps{
+   script {
+    gv = load "script.groovy"
+    }
+    }
+    }
+    
   stage("build"){
   
   steps{
-      echo "Build is successfull"
+      script {
+      gv.buildApp()
+      }
+      
      }
   }
    stage("Test"){
@@ -23,18 +36,17 @@ pipeline{
        params.executeTests == true
     }
    }
-  
-
-        steps{
-          echo  "Test is successful"
-               }
+      script {
+      gv.TestApp()
+      }
 }
 
    stage("Deploying Image"){
 
         steps{
-         echo "Deploying docker image to Docker hub"
-         echo "Deploying ${params.VERSION}"
+         script {
+           gv.deployApp()
+      }
       }
       }     
        
