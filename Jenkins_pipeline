@@ -12,31 +12,31 @@ pipeline {
  
  stages{
  
- stage("Initilization stage"){
-  steps {
-   script {
-    gv = load "script.groovy"
-    }
-    }
+   stage("Initilization stage"){
+     steps {
+       script {
+         gv = load "script.groovy"
+      }
+     }
     }
     
   stage("build"){
   
-  steps {
+    steps {
       script {
-      gv.buildJar()
+        gv.buildJar()
       }
       
      }
   }
    stage("Test"){
    
-   when {
-    expression {
-       params.executeTests == true
+     when {
+       expression {
+         params.executeTests == true
     }
    }
-   steps {
+     steps {
       script {
        gv.testApp()
       }
