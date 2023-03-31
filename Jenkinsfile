@@ -21,7 +21,7 @@ pipeline{
      stage("Build Image"){
   
        steps{
-        withCredentials([usernamePassword(credentialsId: 'dockerhub_cred', usernameVariable: 'USER', passwordVariable: 'PASS')]){
+        withCredentials([usernamePassword(credentialsId: 'docker_hub_cred', usernameVariable: 'USER', passwordVariable: 'PASS')]){
          sh 'docker build -t reethu123/myrepo:1.2 . '
          sh "echo $PASS |docker login -u $USER --password-stdin"
          sh 'docker push reethu123/myrepo:1.2'
