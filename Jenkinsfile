@@ -1,3 +1,6 @@
+#!/usr/bin/env groovy
+@Library('jenkins-shared-library')_
+
 pipeline{
  agent any
  tools{
@@ -6,41 +9,28 @@ pipeline{
  stages{
   stage("build"){
   steps{
-      sh 'mvn package'
+      buildJar()
      }
   }
    stage("Test"){
-  
-
         steps{
           echo  "Test is successful"
                }
-   
 }
 
      stage("Build Image"){
   
        steps{
-        withCredentials([usernamePassword(credentialsId: 'docker_hub_cred', usernameVariable: 'USER', passwordVariable: 'PASS')]){
-         sh 'docker build -t reethu123/myrepo:1.2 . '
-         sh "echo $PASS |docker login -u $USER --password-stdin"
-         sh 'docker push reethu123/myrepo:1.2'
+        buildImage()
         }
        }
-     
-
-}
-
+  
       stage("Deploying Image"){
 
         steps{
          echo "Deploying docker image to Docker hub"
       }
-      }
-
-      
-
+      }    
      }
-
    }
 
